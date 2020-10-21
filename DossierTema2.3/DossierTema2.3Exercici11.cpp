@@ -1,12 +1,16 @@
+/* Dossier UF1. Tema 2.3 Exercici 11 
+
+(MesGranMesPetit)
+Calcula el numero més gran i més petit dels números introduïts per teclats.
+Acabem d'introduir números quan l'usuari ens introdueixi el 0. EL 0 no s'ha de tenir en compte, 
+és una marca final.
+*/
+
 #include <iostream>
 #include <stdio.h>
 
-// Dossier UF1. Tema 2.3 ITERACIONS.
-
-int num, max, min=0;
-
 int main() {
-
+	int num, max, min=0;
 	printf("Introdueix un nombre.\n");
 	scanf("%d", &num);
 	min=num, max=num;

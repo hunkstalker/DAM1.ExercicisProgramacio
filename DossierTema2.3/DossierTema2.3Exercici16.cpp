@@ -9,10 +9,10 @@ ha de mostrar per pantalla quantes lletres 'a' ha introduït l'usuari.
 #include <iostream>
 #include <stdio.h>
 
-int cont, numUser=0;
-char car='z';
-
 int main (){
+	int cont, numUser=0;
+	char car='z';
+	
 	printf("Introdueix un nombre entre 5 i 10.\n");
 	scanf("%d",&numUser);
 	while (numUser<5 || numUser>10){

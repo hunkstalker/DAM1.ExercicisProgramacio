@@ -12,7 +12,7 @@ char car='z';
 int i, cont=0;
 
 int main(){
-	for (i=1; i<=3; i++){
+	for (i=1; i<=10; i++){
 		printf("%s",("Introdueix un altre lletra.\n"));
 		scanf("%s",&car);
 		if (car=='a'){

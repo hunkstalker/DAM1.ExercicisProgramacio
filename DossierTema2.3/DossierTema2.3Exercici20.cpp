@@ -4,10 +4,26 @@
 Finalitzarem d'introduir caracters quan l'usuari posi un '.'
 */
 
+#include <stdio.h>
+#include <stdlib.h>
+
+int cont=0;
+char car1='L';
+char car2='A';
+
 int main () {
-	
-	
-	
+	while (car1!='.'){
+		printf("Introdueix un caracter: ");
+		scanf("%s",&car1);
+		if (car1=='l' || car1=='L'){
+			printf("Introdueix un caracter: ");
+			scanf("%s",&car2);
+			if ((car1=='l' || car1=='L') && (car2=='a' || car2=='A')){
+			cont++;
+			} 
+		}
+	}
+	printf("%s%d%s",("L'usuari a introduit "), cont, (" cops la sequencia 'la'."));
 }
 
 
