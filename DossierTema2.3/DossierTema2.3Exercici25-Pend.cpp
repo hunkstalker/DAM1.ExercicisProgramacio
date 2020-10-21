@@ -8,6 +8,7 @@ paraula hi poden haver més d'un espai. Recordeu el l'espai en blanc equival al c
 
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
 
 int cont=0;
 char car[1], carAnt[1];
@@ -15,21 +16,24 @@ char car[1], carAnt[1];
 int main () {
 	printf("Introdueix un caracter: ");
 	fgets(carAnt,2,stdin);
+	fflush(stdin);
 	
-	if (carAnt[1]=='.'){
+	if (carAnt[0]=='.'){
 		printf("DEP");
-	} else if (carAnt[1]!=' '){
+	} else if (carAnt[0]!=' '){
 		cont++;
 	}
 	printf("Introdueix un caracter: ");
 	fgets(car,2,stdin);
-	while (car[1]!=' '){
-		if (car[1]!=' ' && carAnt[1]==' '){
+	fflush(stdin);
+	while (car[0]!=' '){
+		if (car[0]!=' ' && carAnt[0]==' '){
 			cont++;
 		}
-		carAnt[1]=car[1];
+		carAnt[0]=car[0];
 		printf("Introdueix un caracter: ");
 		fgets(car,2,stdin);
+		fflush(stdin);
 	}
 	printf("Hem trobat %d", cont, "paraules.");
 	return 0;
