@@ -13,6 +13,7 @@ nombre de vegades menor que n, llavors ha guanyat. Si no, ha perdut.
 #include <time.h>
 
 int attempts;
+int numRnd=0;
 int num1, num2, num3, num4=0;
 int m, c, d, u;
 
@@ -20,10 +21,10 @@ int main (){
 	
 	
 	srand(time(NULL));
-	int numRnd = rand()%1000+1;
+	int numRnd = rand()%10000;
 	printf("Avis: el nombre 'secret' aleatori es %d\n", numRnd);
 	
-	printf("Quants intents vols fer?");
+	/*printf("Quants intents vols fer?");
 	fgets(attempts,2,stdin);
 	fflush(stdin);
 	printf("Registrat: el nombre de intents restants es %d\n\n", attempts);
