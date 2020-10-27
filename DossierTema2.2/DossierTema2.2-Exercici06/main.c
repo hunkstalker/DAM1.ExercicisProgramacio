@@ -13,13 +13,13 @@ int main()
 
     printf(">> Introdueix la nota: ");
     scanf("%d",&nota);
-    printf("-- Nota introduida per l'usuari: %d\n", nota);
+    printf("\n-- Nota introduida per l'usuari: %d\n", nota);
 
-    while (!(nota>=0 && nota<=10)){
+    while (!(nota>=1 && nota<=10)){
         printf("\n-- Error. Nota no valida.\n>> Introdueix un altre nombre: ");
         scanf("%d",&nota);
     }
-    if (nota>=0 && nota<=3){
+    if (nota>=0 && nota<=10){
         switch (nota){
             case 1:
             case 2:

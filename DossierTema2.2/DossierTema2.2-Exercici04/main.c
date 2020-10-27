@@ -9,16 +9,15 @@ Fer un algoritme que donat un nombre natural, indiqui si és o no un nombre natur
 
 int main()
 {
-    int num1=0;
+    int num=0;
 
     printf(">> Introdueix un nombre: ");
-    scanf("%d",&num1);
-    if (num1%2==0){
-        printf("\n-- El numero %d es parell.\n",num1);
+    scanf("%d",&num);
+    if (num%2==0){
+        printf("\n-- El numero %d es parell.\n",num);
     } else {
-        printf("\n-- El numero %d es senar.\n",num1);
+        printf("\n-- El numero %d es senar.\n",num);
     }
-
     return 0;
 }
 

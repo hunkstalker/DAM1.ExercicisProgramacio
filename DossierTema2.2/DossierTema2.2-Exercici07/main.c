@@ -13,6 +13,7 @@ int main()
 
     printf(">> Introdueix la nota: ");
     scanf("%c",&car);
+    fflush(stdin);
 
     switch (car){
         case 'a':
@@ -30,6 +31,7 @@ int main()
         case 'u':
         case 'U': printf("\n-- La vocal es el nombre: 5\n");
             break;
+        default: printf("\n-- Error\n");
     }
     return 0;
 }

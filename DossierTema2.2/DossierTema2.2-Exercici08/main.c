@@ -15,6 +15,10 @@ int main()
     printf(">> Introdueix el nombre de mes: ");
     scanf("%d",&numMes);
 
+    while (!(numMes>=1 && numMes<=12)){
+        printf("\n-- Error. Mes no valid.\n>> Introdueix un altre: ");
+        scanf("%d",&numMes);
+    }
     switch (numMes){
         case 1:
         case 3:
@@ -22,17 +26,17 @@ int main()
         case 7:
         case 8:
         case 10:
-        case 12: printf("\n-- Mes: %d ; Resultat 31 dies.\n",numMes);
+        case 12: printf("\n-- Mes: %d: Resultat 31 dies.\n",numMes);
             break;
         case 4:
         case 6:
         case 9:
-        case 11: printf("\n-- Mes: %d ; Resultat 30 dies.\n",numMes);
+        case 11: printf("\n-- Mes: %d: Resultat 30 dies.\n",numMes);
             break;
-        case 2: printf("\n-- Mes: %d ; Resultat 28 dies.\n",numMes);
+        case 2: printf("\n-- Mes: %d: Resultat 28 dies.\n",numMes);
             break;
     }
-return 0;
+    return 0;
 }
 
 // Per exemple: mes: 10 ; Resultat 31 dies
