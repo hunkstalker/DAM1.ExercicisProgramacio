@@ -11,9 +11,12 @@ Acabem d'introduir números quan l'usuari ens introdueixi el 0. EL 0 no s'ha de t
 
 int main() {
 	int num, max, min=0;
+	
 	printf("Introdueix un nombre.\n");
 	scanf("%d", &num);
-	min=num, max=num;
+	min=num;
+	max=num;
+	
 	while (num!=0){
 		if (num>max){
 			max = num;
