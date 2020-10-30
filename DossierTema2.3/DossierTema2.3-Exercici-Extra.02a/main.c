@@ -6,7 +6,6 @@
 LA MATRÍCULA DER DIABOLO.A
 */
 
-
 int main()
 {
     int M=0, C=0, DU=0;
@@ -15,9 +14,10 @@ int main()
         C=0;
         while (C<=9){
             DU=M*C;
-            printf("%d%d%02d\n", M, C, DU);
+            printf("%d%d%02d\t", M, C, DU);
             C++;
         }
+        printf("\n");
         M++;
     }
     return 0;

@@ -6,22 +6,28 @@
 LA MATRÍCULA DER DIABOLO.B
 */
 
-
 int main()
 {
-    int M=0, C=0, D=0, U=0;
-    int i=0;
+    int m,c,d,u;
+    int cont=0;
 
-    if (i<=9999){
-        while (M<=9){
-                C=0;
-            while (C<=9){
-                U=M*C;
-                printf("%d%d%d%d0\n",M,C,D,U);
-                C++;
+    for (m=0;m<10;m++)
+    {
+        for (c=0;c<10;c++)
+        {
+            for (d=0;d<10;d++)
+            {
+                for (u=0;u<10;u++)
+                {
+                    if (m*c==d*10+u){
+                        printf("%i%i%i%i\t",m,c,d,u);
+                        cont++;
+                        if (cont%10==0) printf("\n");
+                        }
+                    }
             }
-            M++;
         }
     }
+    printf("\nEl total de matricules es %f %%", (float)cont*100/10000);
     return 0;
 }

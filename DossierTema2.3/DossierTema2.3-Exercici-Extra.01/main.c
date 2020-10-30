@@ -49,11 +49,13 @@ int main()
 int forFunction(var1,var2){
     opcio=0;
     for (d=0;d<=9;d++){
+        printf("\n");
         for (u=0;u<=9;u++){
-        printf("%d%d\n",d,u);
+        printf("%d%d\t",d,u);
         }
+
     }
-    printf("\n>> Aquesta ha sigut una funcio amb 'for'.\n");
+    printf("\n\n>> Aquesta ha sigut una funcio amb 'for'.\n");
     sortir();
     return 0;
 }
@@ -61,15 +63,16 @@ int forFunction(var1,var2){
 // Funcio per l'exercici fet amb 'while'.
 int whileFunction(var1,var2){
     opcio=0;
-    while (var1<=9){
-        var2=0;
-        while (var2<=9){
-            printf("%d%d\n",var1,var2);
-            var2++;
+    while (d<=9){
+        u=0;
+        printf("\n");
+        while (u<=9){
+            printf("%d%d\t",d,u);
+            u++;
         }
-        var1++;
+        d++;
     }
-    printf("\n>> Aquesta ha sigut una funcio amb 'while'.\n");
+    printf("\n\n>> Aquesta ha sigut una funcio amb 'while'.\n");
     sortir();
     return 0;
 }
