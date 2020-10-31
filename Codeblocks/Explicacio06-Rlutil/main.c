@@ -4,7 +4,7 @@
 #include <windows.h>
 
 int xPos=0,yPos=0,xDir=0,yDir=0;// posiciones
-int loops=0,cont=0,i=0,dir=0;   // contadores
+int loops=0,cont=0,i=0,dir=0,p=0;   // contadores
 char option='X',car='O';
 
 int musicPlay=1;
@@ -82,7 +82,7 @@ int main()
     printf("\t\tv.1.1c\n");
     // Punto de inicio del recuadro en los ejes X-Y.
     setColor(14);
-    printf("\n>> Escogeix el punt d'inici seleccionant coordenadas...\n");
+    printf("\n>> Escull el punt d'inici seleccionant coordenades...\n");
     setColor(WHITE);
     printf(">> Eix horitzontal X: ");
     scanf("%d",&xPos);
@@ -92,7 +92,7 @@ int main()
         cont=cont+2;
     }
     printf(">> Eix vertical Y: ");
-    scanf("%d",&yPos);
+    p=scanf("%d",&yPos);
     while (yPos<0){ // Compr errores
         printf(">> No s'hi valen valors negatius et sortiries de la consola.\n>> Inclos 0 introdueix una coordenada Y: ");
         scanf("%d",&yPos);
@@ -119,9 +119,14 @@ int main()
         cont=cont+2;
     }
     // Dirección del recuadro.
-    printf("\n>> Excogeix la direccio: ["); setColor(12); printf("D"); setColor(WHITE); printf("]reta o ["); setColor(12); printf("E"); setColor(WHITE); printf("]squerra?: ");
+    printf("\n>> Escull la direccio: ["); setColor(12); printf("D"); setColor(WHITE); printf("]reta o ["); setColor(12); printf("E"); setColor(WHITE); printf("]squerra?: ");
     scanf("%c",&option);
     fflush(stdin);
+    if (option=='e' || option=='E'){
+        p=xDir;
+        xDir=yDir;
+        yDir=p;
+    }
     while (!(option=='D' || option=='d' || option=='E' || option=='e')){ // Compr errores
         printf(">> Error, introdueix els valors correctes\n>> Introdueix la direccio: ["); setColor(12); printf("D"); setColor(WHITE); printf("]reta o ["); setColor(12); printf("E"); setColor(WHITE); printf("]squerra: ");
         scanf("%c",&option);
@@ -132,14 +137,15 @@ int main()
     // Pide al usuario un numero para la cantidad de vueltas que dará el recuadro.
     printf(">> Quantes voltes vols?: ");
     scanf("%d",&loops);
+    fflush(stdin);
     while (loops<0){ // Compr errores
         printf(">> No s'hi valen valors negatius.\n>> Introdueix un altre nomero de voltes: ");
         scanf("%d",&loops);
+        fflush(stdin);
         cont=cont+2;
     }
-    printf(">> Inici: ");
 
-    yPos=yPos+(17+cont);
+    yPos=yPos+(16+cont);
     xPos=xPos+1;
     for (cont=0; cont<loops; cont++){
         setColor(color);
@@ -151,15 +157,22 @@ int main()
         }
         else {
             // Llama al método que realiza el dibujo.
-            dir=1; // Invierte la dirección de 2 de los 'for' Sup e Inf. en el eje X.
+            // Invierte la dirección de 2 de los 'for' Sup e Inf. en el eje X.
+            dir=1;
             dibuix();
         }
     }
 
     // FINAL DEL PROGRAMA.
+//    if (dir==2){
+//        p=xDir;
+//        xDir=yDir;
+//        yDir=p;
+//    }
     setColor(WHITE);
     // Recoloca el cursor por debajo del dibujo para no taparlo con el siguiente texto.
-    gotoxy(xPos,yPos+yDir);
+    if (dir==0) gotoxy(xPos,yPos+yDir);
+    else  gotoxy(xPos,yPos+xDir);
     fflush(stdin);
     printf("\n>> Ara vols ["); setColor(12); printf("R"); setColor(WHITE); printf("]epetir l'exercici o vols ["); setColor(12); printf("S"); setColor(WHITE); printf("]ortir? ");
     scanf("%c",&option);
@@ -174,7 +187,7 @@ int main()
     if (option=='R' || option=='r') repeat(); // Llama al reinicio del programa.
     else {
         printf("\nPROGRAMA DE DIBUIX © 2020 Denis Anfruns. EDUCEM, Granollers.");
-        printf("\n\nMUSICA 'happy_adveture' DE https://opengameart.org/content/happy-adventure-loop .");
+        printf("\n\nMUSICA 'happy_adventure' DE https://opengameart.org/content/happy-adventure-loop .");
 
         // Llama a la cuenta regresiva.
         countdown();
