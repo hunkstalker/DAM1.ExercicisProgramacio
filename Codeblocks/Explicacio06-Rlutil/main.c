@@ -148,6 +148,7 @@ int main()
     yPos=yPos+(16+cont);
     xPos=xPos+1;
     for (cont=0; cont<loops; cont++){
+        setBackgroundColor(color);
         setColor(color);
         color++;
         if (option=='D' || option=='d'){
@@ -164,11 +165,7 @@ int main()
     }
 
     // FINAL DEL PROGRAMA.
-//    if (dir==2){
-//        p=xDir;
-//        xDir=yDir;
-//        yDir=p;
-//    }
+    setBackgroundColor(BLACK);
     setColor(WHITE);
     // Recoloca el cursor por debajo del dibujo para no taparlo con el siguiente texto.
     if (dir==0) gotoxy(xPos,yPos+yDir);
