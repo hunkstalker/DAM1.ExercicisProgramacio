@@ -1,5 +1,6 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <rlutil.h>
 
 /* Dossier UF1. Tema 2.2, Exercici 9
 
@@ -9,12 +10,27 @@ Fer un algoritme que demani a l’usuari un mes i un dia, i mostri per pantalla l’
 
 int main()
 {
-    int dia, mes=0;
+    int dia=0, mes=0;
+    SetConsoleTitle("Dossier UF1. Tema 2.2, Exercici 9");
 
-    printf(">> Introdueix un mes del any (valors del 1 al 12): ");
-    scanf("%d",&mes);
-    printf(">> Introdueix un dia del mes (valors del 1 al 31): ");
-    scanf("%d",&dia);
+    while (!(mes>=1 && mes<=12)){
+        printf(">> Introdueix un mes del any (valors del 1 al 12): ");
+        scanf("%d",&mes);
+    }
+    if (mes==1 || (mes>=3 && mes<12)){
+        while (!(dia>=1 && dia<=31)){
+            printf(">> Introdueix un dia del mes (valors del 1 al 31): ");
+            scanf("%d",&dia);
+        }
+        while (!(dia>=1 && dia<=28)){
+        printf(">> Introdueix un dia del mes (valors del 1 al 31): ");
+        scanf("%d",&dia);
+        }
+    }
+
+
+
+
 
     if (!(mes==2 && dia>=1 && dia<=28)) {
         printf("\n>> Error");

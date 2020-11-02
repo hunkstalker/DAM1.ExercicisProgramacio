@@ -1,0 +1,5 @@
+# depslib dependency file v1.0
+1604186580 source:c:\users\hunk2\onedrive\cursodam\m3-programacio\uf1.programacioestructurada\dam1.exercicisprogramacio\dossiertema3.1\dossiertema3.1-exercici01\main.c
+	<stdio.h>
+	<stdlib.h>
+

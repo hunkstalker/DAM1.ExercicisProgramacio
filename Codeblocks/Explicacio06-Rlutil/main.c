@@ -4,7 +4,7 @@
 #include <windows.h>
 
 int xPos=0,yPos=0,xDir=0,yDir=0;// posiciones
-int loops=0,cont=0,i=0,dir=0,p=0;   // contadores
+int loops=0,cont=0,i=0,dir=0,aux=0,lineasPantalla=0;   // contadores
 char option='X',car='O';
 
 int musicPlay=1;
@@ -82,7 +82,7 @@ int main()
     printf("\t\tv.1.1c\n");
     // Punto de inicio del recuadro en los ejes X-Y.
     setColor(14);
-    printf("\n>> Escull el punt d'inici seleccionant coordenades...\n");
+    printf("\n>> Escull el punt d'inici seleccionant coordenades partint de 0,0.\n");
     setColor(WHITE);
     printf(">> Eix horitzontal X: ");
     scanf("%d",&xPos);
@@ -92,7 +92,7 @@ int main()
         cont=cont+2;
     }
     printf(">> Eix vertical Y: ");
-    p=scanf("%d",&yPos);
+    aux=scanf("%d",&yPos);
     while (yPos<0){ // Compr errores
         printf(">> No s'hi valen valors negatius et sortiries de la consola.\n>> Inclos 0 introdueix una coordenada Y: ");
         scanf("%d",&yPos);
@@ -100,32 +100,32 @@ int main()
     }
     // Tamaño del recuadro X-Y.
     setColor(14);
-    printf("\n>> Introdueix les dimensions del dibuix.\n");
+    printf("\n>> Introdueix les dimensions del dibuix partint del minim 2x2.\n");
     setColor(WHITE);
     printf(">> Eix horitzontal X: ");
     scanf("%d",&xDir);
-    while (xDir<=0){ // Compr errores
-        printf(">> No s'hi valen valors negatius ni el 0.\n>> Introdueix un altre nombre per l'eix vertical X: ");
+    while (xDir<=1){ // Compr errores
+        printf(">> Error, recorda minim de 2 per l'eix horitzontal X: ");
         scanf("%d",&xDir);
-        cont=cont+2;
+        cont=cont+1;
     }
     printf(">> Eix vertical Y: ");
     scanf("%d",&yDir);
     fflush(stdin);
-    while (yDir<=0){ // Compr errores
-        printf(">> No s'hi valen valors negatius ni el 0.\n>> Introdueix un altre nombre per l'eix vertical Y: ");
+    while (yDir<=1){ // Compr errores
+        printf(">> Error, recorda minim de 2 per l'eix horitzontal Y: ");
         scanf("%d",&yDir);
         fflush(stdin);
-        cont=cont+2;
+        cont=cont+1;
     }
     // Dirección del recuadro.
     printf("\n>> Escull la direccio: ["); setColor(12); printf("D"); setColor(WHITE); printf("]reta o ["); setColor(12); printf("E"); setColor(WHITE); printf("]squerra?: ");
     scanf("%c",&option);
     fflush(stdin);
     if (option=='e' || option=='E'){
-        p=xDir;
+        aux=xDir;
         xDir=yDir;
-        yDir=p;
+        yDir=aux;
     }
     while (!(option=='D' || option=='d' || option=='E' || option=='e')){ // Compr errores
         printf(">> Error, introdueix els valors correctes\n>> Introdueix la direccio: ["); setColor(12); printf("D"); setColor(WHITE); printf("]reta o ["); setColor(12); printf("E"); setColor(WHITE); printf("]squerra: ");
@@ -185,7 +185,6 @@ int main()
     else {
         printf("\nPROGRAMA DE DIBUIX © 2020 Denis Anfruns. EDUCEM, Granollers.");
         printf("\n\nMUSICA 'happy_adventure' DE https://opengameart.org/content/happy-adventure-loop .");
-
         // Llama a la cuenta regresiva.
         countdown();
         // Llama a la salida del programa.
