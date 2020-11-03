@@ -23,6 +23,7 @@ int main()
 
     SetConsoleTitle("Dossier UF1. Tema 2.3, Exercici 28");
 
+    setColor(WHITE);
     printf("\n>> Introdueix un nombre natural Inicial: ");
     scanf("%d",&numInici);
     for (cont=0;cont<10;cont++){
@@ -62,7 +63,9 @@ int main()
     }
     if (option=='R' || option=='r') repeat(); // Llama al reinicio del programa.
     else {
-        printf("\nDossier UF1. Tema 2.3, Exercici 28, 2020 Denis Anfruns. EDUCEM, Granollers.");
+        setColor(6);
+        printf("\nDossier UF1. Tema 2.3, Exercici 28, Curs 2020/2021 Denis Anfruns. EDUCEM, Granollers.\n>> Prem Intro per sortir...");
+        setColor(WHITE);
         getchar();
         // Llama a la salida del programa.
         exit(0);
