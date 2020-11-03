@@ -18,7 +18,6 @@ int m, c, d, u;
 
 int main (){
 	
-	
 	srand(time(NULL));
 	int numRnd = rand()%1000+1;
 	printf("Avis: el nombre 'secret' aleatori es %d\n", numRnd);
