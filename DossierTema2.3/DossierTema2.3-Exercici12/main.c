@@ -20,6 +20,7 @@ int main()
         fact=fact*cont;
     }
     printf("El factorial de %0.f es %0.f\n", n, fact);
+    getch();
     return 0;
 }
 
