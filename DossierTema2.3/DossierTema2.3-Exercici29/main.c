@@ -3,6 +3,9 @@
 #include <rlutil.h>
 #include <time.h>
 
+// Definir una constante.
+// #define NOM valor
+
 /* Dossier UF1, Tema 2.3 Exercici 29.
 
 (Mastermind)
@@ -18,24 +21,28 @@ int main(){
 
     SetConsoleTitle("Dossier UF1, Tema 2.3 Exercici 29.");
 
-    int i=0, attemps=0, nSecret=0, numUsu=0;
-    char optionPr='X';
+    int attemps=0, nSecret=0, numUsu=0; // Variables del ejercicio.
+    char optionPr='X'; // Variable de salida del programa.
+    int min=1000, max=9000;
+
+
+//  min=0 max=015
+//  rand()%(max-min+1)+min;
 
 	srand(time(NULL));
-	for (i=0;i<9999;i++){
-        nSecret=rand()%9999;
-	}
+//	nSecret=rand()%9999+1000;
+    nSecret=rand()%(max-min)+min;
 	printf(">> Numero aleatori a esbrinar: "); setColor(GREEN); printf("%d", nSecret); setColor(WHITE);
 
 
-	while (attemps<1){
+	if (attemps<1){
         setColor(6);
         printf("\n\n>> Quants intents vols fer?: "); setColor(15);
         scanf("%d",&attemps);
         fflush(stdin);
         while (attemps<1){
             setColor(RED);
-            printf("\n>> No pots fer 0 intents, minim 1."); setColor(WHITE); printf("\n\n>> Quants intents vols fer?: ");
+            printf("\n>> No pots fer 0 intents, minim 1."); setColor(6); printf("\n\n>> Quants intents vols fer?: "); setColor(WHITE);
             scanf("%d",&attemps);
             fflush(stdin);
         }
