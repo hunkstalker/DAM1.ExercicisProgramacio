@@ -1,4 +1,5 @@
-DossierTema2.3/*.cpp
-DossierTema2.3/*.exe
-Codeblocks/prueba/
+*.cpp
 *.exe
+*.depend
+*.layout
+Codeblocks/prueba/
