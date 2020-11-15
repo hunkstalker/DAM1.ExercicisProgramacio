@@ -2,4 +2,6 @@
 *.exe
 *.depend
 *.layout
-Codeblocks/prueba/
+\bin
+\obj\debug
+Codeblocks\prueba\

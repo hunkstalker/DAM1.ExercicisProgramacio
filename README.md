@@ -1,3 +1,3 @@
 # exercicis-programacio
 
-Ejercicios de Programación DAM1, Educem Granollers 2020
+Programación DAM1, Educem Granollers 2020/21
