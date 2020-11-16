@@ -6,7 +6,7 @@
 
 // Exercici Práctica #1.
 
-int musicPlay=0;
+int musicPlay=1;
 
 // Método para reproducir música.
 void music(){
@@ -30,7 +30,6 @@ int main(){
 
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
-
 
     // Valores que se le piden al usuario.
     int cotMin=0, cotMax=0, cotInicial=0;
