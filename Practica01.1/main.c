@@ -31,7 +31,6 @@ int main(){
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 
-
     // Valores que se le piden al usuario.
     int cotMin=0, cotMax=0, cotInicial=0;
 
@@ -50,10 +49,10 @@ int main(){
     // Variable para controlar la salida/repetición del programa.
     char optionPr='X';
     // Variable contador final.
-    int finalCountdown=5;
+    int finalCountdown=3;
 
     setColor(6);
-    printf("\n Benvingut al SISTEMA GESTOR DE COTITZACIONS A BORSA 1.0c\n");
+    printf("\n Benvingut al SISTEMA GESTOR DE COTITZACIONS A BORSA 1.1.0\n");
     printf(" Realitzat per: Denis Anfruns Millán\n\n");
     setColor(15);
     yDirPlus=yDirPlus+5;
@@ -103,16 +102,18 @@ int main(){
     cotDiaActual=cotInicial;
     cotAux=cotDiaActual;
     printf("\n dia %2d: %3d\n", dia, cotDiaActual);
-    dia++;
+    avgCot=avgCot+cotInicial;
 
     // Bloque recuentos resumen final.
-    avgCot=cotInicial;
     cotRecMax=cotInicial;
     diaMax=dia;
     cotRecMin=cotInicial;
     diaMin=dia;
 
-    while ((dia<=60) && (!(falloCont==3))){
+    while ((dia<=59) && (!(falloCont==3))){
+
+        // Contador de días.
+        dia++;
 
         // NUM RANDOM
         // Cálculo aleatorio de subida/bajada cotización.
@@ -120,11 +121,6 @@ int main(){
         // randCot=rand()%numRandom-2;
         // En este caso cambiar variable al rango que quieras que suba/baje: Ej. num=2 (num*2=4)-2 = -2 a 2 (best option).
         randCot=rand()%(numRandom*2+1)-numRandom;
-
-        // Contador bancarrota.
-        if (cotDiaActual<cotMin){
-            falloCont++;
-        } else if (cotDiaActual>=cotMin) falloCont=0;
 
         // Cálculo de variación cotización.
         cotDiaActual=cotDiaActual+randCot;
@@ -134,32 +130,20 @@ int main(){
         cotDiaAnterior=cotAux;
         cotDiaAnAnterior=cotAux2;
 
-        // Suma para cálculo de la media.
-        avgCot=avgCot+cotDiaActual;
-
         // dia 2
         if (dia<=2){
+
             if (cotDiaActual<cotMin) setColor(RED);
             if (cotDiaActual>cotMax) setColor(3);
-
             msleep(15);
             printf(" dia %2d: %3d %3d\n", dia, cotDiaActual, cotDiaAnterior);
             yDirPlus++;
             setColor(15);
             cotAux=cotDiaActual;
-
-            // Bloque resumen final. Esto lo haría en una función.
-            if (cotDiaActual>=cotRecMax){
-                cotRecMax=cotDiaActual;
-                diaMax=dia;
-            } else if (cotDiaActual<=cotRecMin){
-                cotRecMin=cotDiaActual;
-                diaMin=dia;
-            }
         }
 
         // Primer bloque de días (1er mes, 3 a 30).
-        if ((dia>=3 && dia<=30) && (!(falloCont==3))){
+        if (dia>=3 && dia<=30){
             if (cotDiaActual<cotMin) setColor(RED);
             if (cotDiaActual>cotMax) setColor(3);
             msleep(15);
@@ -167,19 +151,10 @@ int main(){
             yDirPlus++;
             setColor(15);
             cotAux=cotDiaActual;
-
-            // Bloque resumen final. Esto lo haría en una función.
-            if (cotDiaActual>=cotRecMax){
-                cotRecMax=cotDiaActual;
-                diaMax=dia;
-            } else if (cotDiaActual<=cotRecMin){
-                cotRecMin=cotDiaActual;
-                diaMin=dia;
-            }
         }
 
         // Segundo bloque de días (2do mes, 31 a 60).
-        if ((dia>=31 && dia<=60) && (!(falloCont==3))){
+        if (dia>=31 && dia<=60){
             if (dia==31) yDir=yDirPlus-29;
             xDir=32; yDir++;
             gotoxy(xDir,yDir);
@@ -189,33 +164,50 @@ int main(){
             printf(" dia %2d: %3d %3d %3d\n", dia, cotDiaActual, cotDiaAnterior, cotDiaAnAnterior);
             setColor(15);
             cotAux=cotDiaActual;
-
-            // Bloque resumen final. Esto lo haría en una función.
-            if (cotRecMax<=cotDiaActual){
-                cotRecMax=cotDiaActual;
-                diaMax=dia;
-            } else if (cotRecMin>=cotDiaActual){
-                cotRecMin=cotDiaActual;
-                diaMin=dia;
-            }
         }
-    // Contador de días.
-    dia++;
+
+        // Suma para cálculo de la media.
+        avgCot=avgCot+cotDiaActual;
+
+        // Bloque resumen final.
+        if (cotDiaActual>=cotRecMax){
+            cotRecMax=cotDiaActual;
+            diaMax=dia;
+        } else if (cotDiaActual<=cotRecMin){
+            cotRecMin=cotDiaActual;
+            diaMin=dia;
+        }
+
+        // Contador bancarrota.
+        if (cotDiaActual<cotMin){
+            falloCont++;
+        } else if (cotDiaActual>=cotMin) falloCont=0;
     }
     // FIN BLOQUE TABLA
 
     // SALIDA DEL PROGRAMA
     if (falloCont==3){
-        yDir=4+yDirPlus; xDir=1;
+        yDir=3+yDirPlus; xDir=1;
         gotoxy(xDir,yDir);
+        setColor(4);
         printf(" L'EMPRESA A CAIGUT EN BANCARROTA\n\n");
+        setColor(15);
         yDirPlus=yDirPlus+2;
     }
 
-    yDir=4+yDirPlus; xDir=1;
+    yDir=3+yDirPlus; xDir=1;
     gotoxy(xDir,yDir);
     printf(">> Cotització Mínima: "); setColor(2); printf("%d ", cotMin); setColor(15); printf("Cotització Màxima: "); setColor(2); printf("%d ", cotMax); setColor(15); printf("Cotització Inicial: "); setColor(2); printf("%d ", cotInicial); setColor(15);
-    printf("\n\n>> El valor promig de les cotitzacions ha sigut de: "); setColor(2); printf("%.2f",avgCot=(avgCot/dia)); setColor(15);
+    printf("\n\n>> El valor promig de les cotitzacions ha sigut de: ");
+
+    if ((avgCot/dia)<cotMin){
+        setColor(4); printf("%.2f",avgCot/dia); setColor(15);
+    }
+    else if ((avgCot/dia)>cotMax){
+        setColor(3); printf("%.2f",avgCot/dia); setColor(15);
+    } else {
+        setColor(15); printf("%.2f",avgCot/dia); setColor(15);
+    }
 
     printf("\n>> El dia que s'ha obtingut la darrera màxima cotització ha sigut: %d i amb un valor màxim de: ",diaMax); setColor(3); printf("%d", cotRecMax); setColor(15);
     printf("\n>> El dia que s'ha obtingut la darrera mínima cotització ha sigut: %d i amb un valor mínim de: ",diaMin); setColor(RED); printf("%d", cotRecMin); setColor(15);
@@ -255,7 +247,7 @@ int main(){
             msleep(10);
             printf("\b \b");
         }
-        gotoxy(xDir,yDirPlus+14);
+        gotoxy(xDir,yDirPlus+13);
         printf("\n\n Prem Intro per sortir...");
         getchar();
         exit(0);
