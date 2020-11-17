@@ -1,12 +1,13 @@
 #include <stdio.h>
 #include <stdlib.h>
+#include <stdbool.h>
 #include <time.h>
 #include <rlutil.h>
-#include <windows.h>
+#include <windows.h> // música
 
 // Exercici Práctica #1.
 
-int musicPlay=1;
+bool musicPlay=true;
 
 // Método para reproducir música.
 void music(){
@@ -16,18 +17,19 @@ void music(){
 // INICI PROGRAMA
 int main(){
 
-
     // Ejecuta la música 1 vez.
-    if (musicPlay==1){
+    if (musicPlay){
         music();
-        musicPlay=0;
+        musicPlay=false;
     }
 
     system("MODE CON: COLS=100");
     SetConsoleTitle("DAM1 M3/UF1.Programacio Estructurada. Denis Anfruns. 2020/2021");
 
+    // Seed basado en tiempo.
     srand(time(NULL));
 
+    // Tildes.
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 
@@ -38,19 +40,20 @@ int main(){
     int randCot=0, numRandom=2;
 
     // Valores de la tabla. Dias y valores de cotización.
-    int dia=1, cotAux=0, cotAux2=0, cotDiaActual=0, cotDiaAnterior=0, cotDiaAnAnterior=0; // Valores de control de Cotización.
-    int xDir=0, yDir=0, yDirPlus=0; // Valores de gotoxy().
+    int dia=1, cotAct=0, cotAnt=0, cotAnt2=0;  // Valores de control de Cotización.
+    int xDir=1, yDir=1, yDirPlus=0; // Valores de gotoxy().
     int falloCont=0; // Contadores.
     float avgCot=0;
 
     // Valores del recuento/resumen final.
-    int diaMax=0, cotRecMax=0, diaMin=0, cotRecMin=0;
+    int diaMax=0, cotDiaMax=0, diaMin=0, cotDiaMin=0;
 
     // Variable para controlar la salida/repetición del programa.
     char optionPr='X';
     // Variable contador final.
     int finalCountdown=3;
 
+    // INICIO DEL PROGRAMA
     setColor(6);
     printf("\n Benvingut al SISTEMA GESTOR DE COTITZACIONS A BORSA 1.1.0\n");
     printf(" Realitzat per: Denis Anfruns Millán\n\n");
@@ -59,145 +62,130 @@ int main(){
 
     // BLOQUE DE PREGUNTAS AL USUARIO.
     printf(">> Introdueix la cotització mínima (0..10): "); setColor(2);;
-    scanf("%d",&cotMin);
-    fflush(stdin);
-    setColor(15);
+    scanf("%d",&cotMin); setColor(15);
     yDirPlus++;
-    resetColor(); // Chapuza, pero veremos si arregla el bug misterioso del color.
     while (cotMin<0 || cotMin>10){
         setColor(4); printf(">> VALOR INCORRECTE"); setColor(15); printf("\n>> Introdueix de nou la cotització mínima (0..10): "); setColor(2);
-        scanf("%d",&cotMin);
-        fflush(stdin);
-        setColor(15);
-        yDirPlus=yDirPlus+2;
+        scanf("%d",&cotMin); setColor(15);
+        yDirPlus+=2;
     }
     printf(">> Introdueix la cotització màxima (30..40): "); setColor(2);
-    scanf("%d",&cotMax);
-    fflush(stdin);
-    setColor(15);
+    scanf("%d",&cotMax); setColor(15);
     yDirPlus++;
     while (cotMax<30 || cotMax>40){
         setColor(4); printf(">> VALOR INCORRECTE"); setColor(15); printf("\n>> Introdueix de nou la cotització màxima (30..40): "); setColor(2);
-        scanf("%d",&cotMax);
-        fflush(stdin);
-        setColor(15);
-        yDirPlus=yDirPlus+2;
+        scanf("%d",&cotMax); setColor(15);
+        yDirPlus+=2;
     }
     printf(">> Introdueix la cotització inicial (%d..%d): ", cotMin, cotMax); setColor(2);
-    scanf("%d",&cotInicial);
-    fflush(stdin);
-    setColor(15);
+    scanf("%d",&cotInicial); setColor(15);
     yDirPlus++;
     while (cotInicial<cotMin || cotInicial>cotMax){
         setColor(4); printf(">> VALOR INCORRECTE"); setColor(15); printf("\n>> Introdueix de nou la cotització inicial (%d..%d): ", cotMin, cotMax); setColor(2);
-        scanf("%d",&cotInicial);
-        fflush(stdin);
-        setColor(15);
-        yDirPlus=yDirPlus+2;
+        scanf("%d",&cotInicial); setColor(15);
+        yDirPlus+=2;
     }
     // FIN BLOQUE PREGUNTAS USUARIO
 
     // BLOQUE DE TABLA.
     // dia 1
-    cotDiaActual=cotInicial;
-    cotAux=cotDiaActual;
-    printf("\n dia %2d: %3d\n", dia, cotDiaActual);
-    avgCot=avgCot+cotInicial;
+    cotAct=cotInicial;
+    printf("\n dia %2d: %3d\n", dia, cotAct);
 
+    // Contador días
+    dia++;
+    yDirPlus++;
     // Bloque recuentos resumen final.
-    cotRecMax=cotInicial;
+    cotDiaMax=cotInicial;
     diaMax=dia;
-    cotRecMin=cotInicial;
+    cotDiaMin=cotInicial;
     diaMin=dia;
 
-    while ((dia<=59) && (!(falloCont==3))){
+    // Intercambio de valores.
+    cotAnt=cotAct;
 
-        // Contador de días.
-        dia++;
+    // Cálculo de variación cotización.
+    randCot=rand()%(numRandom*2+1)-numRandom;
+    cotAct+=randCot;
+    // Suma para cálculo de la media.
+    avgCot+=cotInicial;
+    avgCot+=cotAct;
 
-        // NUM RANDOM
-        // Cálculo aleatorio de subida/bajada cotización.
-        // En este caso cambiar variable por 5. %5=4 rangos: (0-2 = -2) a (4-2 = 2)
-        // randCot=rand()%numRandom-2;
-        // En este caso cambiar variable al rango que quieras que suba/baje: Ej. num=2 (num*2=4)-2 = -2 a 2 (best option).
-        randCot=rand()%(numRandom*2+1)-numRandom;
+    // dia 2
+    msleep(15);
+    printf(" dia %2d: %3d %3d\n", dia, cotAct, cotAnt);
 
-        // Cálculo de variación cotización.
-        cotDiaActual=cotDiaActual+randCot;
+    // Contador días
+    dia++;
+    // Bloque recuentos resumen final.
+    cotDiaMax=cotInicial;
+    diaMax=dia;
+    cotDiaMin=cotInicial;
+    diaMin=dia;
 
-        // Intercambio de valores entre días.
-        cotAux2=cotDiaAnterior;
-        cotDiaAnterior=cotAux;
-        cotDiaAnAnterior=cotAux2;
+    yDir+=yDirPlus;
+    while ((dia<=60) && (falloCont<3)){
 
-        // dia 2
-        if (dia<=2){
+        // Intercambio de valores.
+        cotAnt2=cotAnt;
+        cotAnt=cotAct;
 
-            if (cotDiaActual<cotMin) setColor(RED);
-            if (cotDiaActual>cotMax) setColor(3);
-            msleep(15);
-            printf(" dia %2d: %3d %3d\n", dia, cotDiaActual, cotDiaAnterior);
-            yDirPlus++;
-            setColor(15);
-            cotAux=cotDiaActual;
-        }
-
-        // Primer bloque de días (1er mes, 3 a 30).
-        if (dia>=3 && dia<=30){
-            if (cotDiaActual<cotMin) setColor(RED);
-            if (cotDiaActual>cotMax) setColor(3);
-            msleep(15);
-            printf(" dia %2d: %3d %3d %3d\n", dia, cotDiaActual, cotDiaAnterior, cotDiaAnAnterior);
-            yDirPlus++;
-            setColor(15);
-            cotAux=cotDiaActual;
-        }
-
-        // Segundo bloque de días (2do mes, 31 a 60).
-        if (dia>=31 && dia<=60){
-            if (dia==31) yDir=yDirPlus-29;
-            xDir=32; yDir++;
-            gotoxy(xDir,yDir);
-            if (cotDiaActual<cotMin) setColor(RED);
-            if (cotDiaActual>cotMax) setColor(3);
-            msleep(15);
-            printf(" dia %2d: %3d %3d %3d\n", dia, cotDiaActual, cotDiaAnterior, cotDiaAnAnterior);
-            setColor(15);
-            cotAux=cotDiaActual;
-        }
+        // ALEATORIO (2 sistemas).
+        // randCot=rand()%numRandom-2; // En este caso cambiar variable por 5. %5=4 rangos: (0-2 = -2) a (4-2 = 2)
+        randCot=rand()%(numRandom*2+1)-numRandom; // En este caso cambiar variable al rango que quieras que suba/baje: Ej. num=2 (num*2=4)-2 = -2 a 2
+        cotAct+=randCot;
 
         // Suma para cálculo de la media.
-        avgCot=avgCot+cotDiaActual;
+        avgCot+=cotAct;
+
+        if (cotAct<cotMin) setColor(RED);
+        else if (cotAct>cotMax) setColor(3);
+        else setColor(15);
+
+        // Bloque de mensajes.
+        if (dia==31){
+            xDir=32;
+            yDir=yDirPlus-1;
+        }
+        yDir++;
+        gotoxy(xDir,yDir);
+        msleep(15);
+        printf(" dia %2d: %3d %3d %3d", dia, cotAct, cotAnt, cotAnt2); setColor(15);
 
         // Bloque resumen final.
-        if (cotDiaActual>=cotRecMax){
-            cotRecMax=cotDiaActual;
+        if (cotAct>=cotDiaMax){
+            cotDiaMax=cotAct;
             diaMax=dia;
-        } else if (cotDiaActual<=cotRecMin){
-            cotRecMin=cotDiaActual;
+        } else if (cotAct<=cotDiaMin) {
+            cotDiaMin=cotAct;
             diaMin=dia;
         }
 
         // Contador bancarrota.
-        if (cotDiaActual<cotMin){
-            falloCont++;
-        } else if (cotDiaActual>=cotMin) falloCont=0;
+        if (cotAct<cotMin) falloCont++;
+        else falloCont=0;
+
+        // Contador de días.
+        dia++;
     }
     // FIN BLOQUE TABLA
 
     // SALIDA DEL PROGRAMA
     if (falloCont==3){
-        yDir=3+yDirPlus; xDir=1;
+        xDir=1; yDir+=2;
         gotoxy(xDir,yDir);
         setColor(4);
         printf(" L'EMPRESA A CAIGUT EN BANCARROTA\n\n");
         setColor(15);
-        yDirPlus=yDirPlus+2;
+        yDirPlus+=2;
     }
 
-    yDir=3+yDirPlus; xDir=1;
+    // Ajuste posición.
+    xDir=1; yDir+=2;
     gotoxy(xDir,yDir);
     printf(">> Cotització Mínima: "); setColor(2); printf("%d ", cotMin); setColor(15); printf("Cotització Màxima: "); setColor(2); printf("%d ", cotMax); setColor(15); printf("Cotització Inicial: "); setColor(2); printf("%d ", cotInicial); setColor(15);
+    dia--;
+
     printf("\n\n>> El valor promig de les cotitzacions ha sigut de: ");
 
     if ((avgCot/dia)<cotMin){
@@ -209,8 +197,8 @@ int main(){
         setColor(15); printf("%.2f",avgCot/dia); setColor(15);
     }
 
-    printf("\n>> El dia que s'ha obtingut la darrera màxima cotització ha sigut: %d i amb un valor màxim de: ",diaMax); setColor(3); printf("%d", cotRecMax); setColor(15);
-    printf("\n>> El dia que s'ha obtingut la darrera mínima cotització ha sigut: %d i amb un valor mínim de: ",diaMin); setColor(RED); printf("%d", cotRecMin); setColor(15);
+    printf("\n>> El dia que s'ha obtingut la darrera màxima cotització ha sigut: %d i amb un valor màxim de: ",diaMax); setColor(3); printf("%d", cotDiaMax); setColor(15);
+    printf("\n>> El dia que s'ha obtingut la darrera mínima cotització ha sigut: %d i amb un valor mínim de: ",diaMin); setColor(RED); printf("%d", cotDiaMin); setColor(15);
 
     // RESET
     setColor(15);
@@ -247,7 +235,7 @@ int main(){
             msleep(10);
             printf("\b \b");
         }
-        gotoxy(xDir,yDirPlus+13);
+        gotoxy(xDir,yDir+10);
         printf("\n\n Prem Intro per sortir...");
         getchar();
         exit(0);

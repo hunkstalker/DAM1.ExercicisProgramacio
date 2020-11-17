@@ -17,7 +17,6 @@ void music(){
 // INICI PROGRAMA
 int main(){
 
-
     // Ejecuta la música 1 vez.
     if (musicPlay){
         music();
