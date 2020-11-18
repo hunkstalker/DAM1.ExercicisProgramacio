@@ -6,30 +6,31 @@
 #include <windows.h> // música
 
 // Exercici Práctica #1.
+// NOTA!. Tener activado en Settings>Compiler en Compiler Flags la opción -std=C99 para poder iniclializar directamente una variable dentro de un 'for'.
 
 bool musicPlay=true;
 
-// Método para reproducir música.
+// Método/procedimiento para reproducir tema musical.
 void music(){
     PlaySound(TEXT("artblock"), NULL, SND_LOOP | SND_ASYNC);
+    musicPlay=false;
 }
 
 // INICI PROGRAMA
 int main(){
 
-    // Ejecuta la música 1 vez.
+    // Llamada a al método music().
     if (musicPlay){
         music();
-        musicPlay=false;
     }
 
     system("MODE CON: COLS=100");
     SetConsoleTitle("DAM1 M3/UF1.Programacio Estructurada. Denis Anfruns. 2020/2021");
 
-    // Seed basado en tiempo.
+    // Seed del srand() basado en tiempo para obtener un número aleatorio distinto cada vez.
     srand(time(NULL));
 
-    // Tildes.
+    // Tildes y símbolos alienígenas.
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 
@@ -48,8 +49,6 @@ int main(){
     // Valores del recuento/resumen final.
     int diaMax=0, cotDiaMax=0, diaMin=0, cotDiaMin=0;
 
-    // Variable para controlar la salida/repetición del programa.
-    char optionPr='X';
     // Variable contador final.
     int finalCountdown=3;
 
@@ -58,7 +57,7 @@ int main(){
     printf("\n Benvingut al SISTEMA GESTOR DE COTITZACIONS A BORSA 1.1.0\n");
     printf(" Realitzat per: Denis Anfruns Millán\n\n");
     setColor(15);
-    yDirPlus=yDirPlus+5;
+    yDirPlus+=5;
 
     // BLOQUE DE PREGUNTAS AL USUARIO.
     printf(">> Introdueix la cotització mínima (0..10): "); setColor(2);;
@@ -86,11 +85,16 @@ int main(){
         yDirPlus+=2;
     }
     // FIN BLOQUE PREGUNTAS USUARIO
+    // Falla con la entrada de algún caracter como la 'a' porque scanf() toma el valor numérico ANSII de los carácteres/símbolos (además del tema del buffer),
+    // estoy investigando como controlar la introducción de carácteres, espacios y el Intro como no válidos con un string y getchar() recorriendo el buffer y buscando lo que quiero restringir.
+    // Aunque imagino que antes de encontrar la solución daremos el salto a otros lenguajes donde será más fácil controlar todo eso
+    // ando cerca ya de poderlo controlar, puedo controlarlo todo pero me falta poder acotar el rango numérico a introducir por el usuario.
+
 
     // BLOQUE DE TABLA.
     // dia 1
     cotAct=cotInicial;
-    printf("\n dia %2d: %3d\n", dia, cotAct);
+    printf("\n dia %2d: %3d\n", dia, cotAct); // Coloco el %3d porque con números negativos se descuadra todo.
 
     // Contador días
     dia++;
@@ -107,6 +111,7 @@ int main(){
     // Cálculo de variación cotización.
     randCot=rand()%(numRandom*2+1)-numRandom;
     cotAct+=randCot;
+
     // Suma para cálculo de la media.
     avgCot+=cotInicial;
     avgCot+=cotAct;
@@ -131,8 +136,8 @@ int main(){
         cotAnt=cotAct;
 
         // ALEATORIO (2 sistemas).
-        // randCot=rand()%numRandom-2; // En este caso cambiar variable por 5. %5=4 rangos: (0-2 = -2) a (4-2 = 2)
-        randCot=rand()%(numRandom*2+1)-numRandom; // En este caso cambiar variable al rango que quieras que suba/baje: Ej. num=2 (num*2=4)-2 = -2 a 2
+        // randCot=rand()%numRandom-2; // En este caso sólo sirve para un número estático prefijado %5=0,4(-2)=-2,2
+        randCot=rand()%(numRandom*2+1)-numRandom; // En este caso cambiar variable al rango que quieras que suba/baje: Ej. num=2 (num*2=4+1)%5=(0,4)-num = -2,2
         cotAct+=randCot;
 
         // Suma para cálculo de la media.
@@ -190,8 +195,7 @@ int main(){
 
     if ((avgCot/dia)<cotMin){
         setColor(4); printf("%.2f",avgCot/dia); setColor(15);
-    }
-    else if ((avgCot/dia)>cotMax){
+    } else if ((avgCot/dia)>cotMax){
         setColor(3); printf("%.2f",avgCot/dia); setColor(15);
     } else {
         setColor(15); printf("%.2f",avgCot/dia); setColor(15);
@@ -200,7 +204,16 @@ int main(){
     printf("\n>> El dia que s'ha obtingut la darrera màxima cotització ha sigut: %d i amb un valor màxim de: ",diaMax); setColor(3); printf("%d", cotDiaMax); setColor(15);
     printf("\n>> El dia que s'ha obtingut la darrera mínima cotització ha sigut: %d i amb un valor mínim de: ",diaMin); setColor(RED); printf("%d", cotDiaMin); setColor(15);
 
-    // RESET
+
+
+
+
+
+
+
+    // RESET. Que lo suyo sería crear una clase a parte, supongo.
+    char optionPr='X'; // Variable para controlar la salida/repetición del programa.
+
     setColor(15);
     fflush(stdin);
     printf("\n\n>> Ara vols ["); setColor(12); printf("R"); setColor(15); printf("]einiciar el sistema o vols ["); setColor(12); printf("S"); setColor(15); printf("]ortir? ");
@@ -230,8 +243,7 @@ int main(){
             msleep(1000);
             printf("\b%d",finalCountdown);
         }
-        int borrado;
-        for (borrado=0;borrado<=27;borrado++){
+        for (int borrado=0;borrado<=27;borrado++){
             msleep(10);
             printf("\b \b");
         }
