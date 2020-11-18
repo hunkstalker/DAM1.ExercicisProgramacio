@@ -2,47 +2,57 @@
 #include <stdlib.h>
 #include <rlutil.h>
 
-// Dossier 2020-21-ME-UF1. Tema 3. Exercici 01
+// Dossier 2020-21-ME-UF1. Tema 3. Exercici 03
 
-/*(Máxim)
-Fer una funció que passant-li dos nombres, ens retorni el màxim dels dos nombres.
-En el cas que els dos nombres siguin iguals, la funció ha de retornar qualsevol dels dos nombres
+/*(NotaNumericaaLLetres2)
+Fer un programa que, a partir d’una funció demani a l’usuari una nota compresa entre 0 i 10.
+Posteriorment aquesta nota, i a través del procediment que s’ha creat a l’exercici número 2, cal transformar-la en lletres.
 
-int maxim(int num1, int num2);
-Exemple: num1=1, num2=5
-Resultat: 5
+Funció: int demanarNota()  // cal controlar que el número sigui correcte
+Procediment: void notaEnLletres(int nota)
+
 */
 
 // prototipos
 void resetPrograma(void);
-int maxim(int,int);
+void imprimirNota(int);
+int demanarNota(int);
+
 
 int main()
 {
-    SetConsoleTitle("Dossier Tema3. Exercici01. (Màxim) Denis Anfruns.");
+    SetConsoleTitle("Dossier Tema3. Exercici03. (NotaNumericaaLLetres2) Denis Anfruns.");
 
     // Tildes y símbolos alienígenas.
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 
-    int num1, num2, numMax;
+    // Variables.
+    int numNota=0;
 
-    printf("\n>> Introdueix un primer nombre: ");
-    scanf("%d",&num1);
-    printf(">> Introdueix un segon nombre: ");
-    scanf("%d",&num2);
-
-    numMax=maxim(num1,num2);
-    printf(">> El numero màxim es %d", numMax);
+    demanarNota(numNota);
     resetPrograma();
     return 0;
 }
 
-int maxim(a,b){
-    int c;
-    if (a>b)c=a;
-    else c=b;
-    return c;
+int demanarNota(num){
+    printf("\n>> Introdueix la nota (valors de 0 a 10): ");
+    scanf("%d",&num);
+    while (num<0 || num>10){
+        setColor(RED); printf(">> Valor erroni!"); setColor(15); printf("\n>> Tens que introduir un valor de 0 a 10): ");
+        scanf("%d",&num);
+    }
+    setColor(6);
+    imprimirNota(num);
+    setColor(15);
+    return num;
+}
+
+void imprimirNota(num){
+    if (num>=0 && num<=4) printf("\n>> La teva nota es de %d y es un Insuficient D:", num);
+    if (num>=5 && num<=6) printf("\n>> La teva nota es de %d y es un Suficient :)", num);
+    if (num>=7 && num<=8) printf("\n>> La teva nota es de %d y es un Notable :D", num);
+    if (num>=9 && num==10) printf("\n>> La teva nota es de %d y es un Excel·lent ~(^-^)~", num);
 }
 
 // Función reset programa.
@@ -70,7 +80,7 @@ void resetPrograma(){
         main();
     } else {
         setColor(6);
-        printf("\n Dossier Tema3. Exercici01. (Màxim).\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
+        printf("\n Dossier Tema3. Exercici03. (NotaNumericaaLLetres2).\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
         setColor(15);
 
         // Cuenta atrás.
