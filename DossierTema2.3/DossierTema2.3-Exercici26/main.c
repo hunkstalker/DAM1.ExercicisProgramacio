@@ -16,10 +16,7 @@ int main(){
 
     SetConsoleTitle("Dossier UF1, Tema 2.3 Exercici 26.");
 
-
-
     char optionPr='x';
-
 
     // SALIDA DEL PROGRAMA
     setColor(15);

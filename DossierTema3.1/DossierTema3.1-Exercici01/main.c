@@ -15,6 +15,8 @@ Resultat: 5
 
 // prototipos
 void resetPrograma(void);
+
+int demanarNumInt(void);
 int maxim(int,int);
 
 int main()
@@ -28,9 +30,9 @@ int main()
     int num1, num2, numMax;
 
     printf("\n>> Introdueix un primer nombre: ");
-    scanf("%d",&num1);
+    num1=demanarNumInt();
     printf(">> Introdueix un segon nombre: ");
-    scanf("%d",&num2);
+    num2=demanarNumInt();
 
     numMax=maxim(num1,num2);
     printf(">> El numero màxim es %d", numMax);
@@ -39,10 +41,14 @@ int main()
 }
 
 int maxim(a,b){
-    int c;
-    if (a>b)c=a;
-    else c=b;
-    return c;
+    if (a>b)b=a;
+    return b;
+}
+
+int demanarNumInt(){
+    int res;
+    scanf("%d",&res);
+    return a;
 }
 
 // Función reset programa.

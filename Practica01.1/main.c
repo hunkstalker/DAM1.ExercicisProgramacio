@@ -1,28 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <stdbool.h>
-#include <time.h>
-#include <rlutil.h>
-#include <windows.h> // música
+#include <stdbool.h>    // permite el uso de booleanos
+#include <time.h>       // seed para el rand()
+#include <rlutil.h>     // colorines
+#include <windows.h>    // música
 
 // Exercici Práctica #1.
-// NOTA!. Tener activado en Settings>Compiler en Compiler Flags la opción -std=C99 para poder iniclializar directamente una variable dentro de un 'for'.
 
-bool musicPlay=true;
+// Prototipos.
+void music(void);
+void resetPrograma(void);
+// NOTA. No uso más procedimentos porque dijisteis que no queríais. Los uso para pijadas mías que quería meter nada más.
 
-// Método/procedimiento para reproducir tema musical.
-void music(){
-    PlaySound(TEXT("artblock"), NULL, SND_LOOP | SND_ASYNC);
-    musicPlay=false;
-}
+// Variables globales.
+int xDir=1, yDir=1, yDirPlus=0; // Valores de gotoxy().
+bool musicPlay=true; // Variable para reproducir música.
 
 // INICI PROGRAMA
 int main(){
-
-    // Llamada a al método music().
-    if (musicPlay){
-        music();
-    }
 
     system("MODE CON: COLS=100");
     SetConsoleTitle("DAM1 M3/UF1.Programacio Estructurada. Denis Anfruns. 2020/2021");
@@ -42,15 +37,16 @@ int main(){
 
     // Valores de la tabla. Dias y valores de cotización.
     int dia=1, cotAct=0, cotAnt=0, cotAnt2=0;  // Valores de control de Cotización.
-    int xDir=1, yDir=1, yDirPlus=0; // Valores de gotoxy().
     int falloCont=0; // Contadores.
     float avgCot=0;
 
     // Valores del recuento/resumen final.
     int diaMax=0, cotDiaMax=0, diaMin=0, cotDiaMin=0;
 
-    // Variable contador final.
-    int finalCountdown=3;
+    // Llamada a al método music().
+    if (musicPlay){
+        music();
+    }
 
     // INICIO DEL PROGRAMA
     setColor(6);
@@ -60,7 +56,7 @@ int main(){
     yDirPlus+=5;
 
     // BLOQUE DE PREGUNTAS AL USUARIO.
-    printf(">> Introdueix la cotització mínima (0..10): "); setColor(2);;
+    printf(">> Introdueix la cotització mínima (0..10): "); setColor(2);
     scanf("%d",&cotMin); setColor(15);
     yDirPlus++;
     while (cotMin<0 || cotMin>10){
@@ -89,7 +85,6 @@ int main(){
     // estoy investigando como controlar la introducción de carácteres, espacios y el Intro como no válidos con un string y getchar() recorriendo el buffer y buscando lo que quiero restringir.
     // Aunque imagino que antes de encontrar la solución daremos el salto a otros lenguajes donde será más fácil controlar todo eso
     // ando cerca ya de poderlo controlar, puedo controlarlo todo pero me falta poder acotar el rango numérico a introducir por el usuario.
-
 
     // BLOQUE DE TABLA.
     // dia 1
@@ -203,16 +198,17 @@ int main(){
 
     printf("\n>> El dia que s'ha obtingut la darrera màxima cotització ha sigut: %d i amb un valor màxim de: ",diaMax); setColor(3); printf("%d", cotDiaMax); setColor(15);
     printf("\n>> El dia que s'ha obtingut la darrera mínima cotització ha sigut: %d i amb un valor mínim de: ",diaMin); setColor(RED); printf("%d", cotDiaMin); setColor(15);
+    resetPrograma();
+    return 0;
+}
 
+// Método/procedimiento cierre/reset programa.
+void resetPrograma(){
 
-
-
-
-
-
-
-    // RESET. Que lo suyo sería crear una clase a parte, supongo.
+    int i=0; // Contador para el borrador final. Podría activar en settings>compiler el -std=c99 y...
+             // declarar la variable directo en el 'for' pero por si acaso te da problemas lo hago así.
     char optionPr='X'; // Variable para controlar la salida/repetición del programa.
+    int finalCountdown=3; // I'ts a final countdown!
 
     setColor(15);
     fflush(stdin);
@@ -243,7 +239,7 @@ int main(){
             msleep(1000);
             printf("\b%d",finalCountdown);
         }
-        for (int borrado=0;borrado<=27;borrado++){
+        for (i=0;i<=27;i++){
             msleep(10);
             printf("\b \b");
         }
@@ -252,5 +248,10 @@ int main(){
         getchar();
         exit(0);
     }
-    return 0;
+}
+
+// Método/procedimiento para reproducir tema musical.
+void music(){
+    PlaySound(TEXT("artblock"), NULL, SND_LOOP | SND_ASYNC);
+    musicPlay=false;
 }

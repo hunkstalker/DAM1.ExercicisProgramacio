@@ -79,30 +79,26 @@ char demanarOperador(void){
 
 // Bloque de cálculos
 float suma(float a,float b){
-    float res;
-    res=a+b;
-    return (res);
+    return (a+b);
 }
 
 float resta(float a,float b){
-    float res;
-    res=a-b;
-    return (res);
+    return (a-b);
 }
 
 float multi(float a,float b){
-    float res;
-    res=a*b;
-    return (res);
+    return (a*b);
 }
 
+// Hacer un paso por referencia.
 float divisio(float a,float b){
     float res;
-    if (b==0){
-        printf("No es pot dividir per cero.");
-        resetPrograma();
-    } else res=a/b;
-    return (res);
+    while (b==0){
+        printf("\n>> No es pot dividir per cero.");
+        printf("\n>> Introdueix el segon numero: ");
+        b=demanarNumeroFloat();
+    }
+    return (a/b);
 }
 
 // Print resultado.
@@ -118,7 +114,7 @@ void pantalla(float num1, float num2, char op, float res)
 void resetPrograma(){
 
     char optionPr='X'; // Variable para controlar la salida/repetición del programa.
-    int finalCountdown=3; // I'ts a final countdown!
+    int finalCountdown=1; // I'ts a final countdown!
     int i=0;
 
     // RESET.

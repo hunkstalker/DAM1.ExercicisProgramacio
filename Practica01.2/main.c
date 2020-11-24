@@ -1,27 +1,23 @@
 #include <stdio.h>
 #include <stdlib.h>
-#include <time.h>
-#include <rlutil.h>
-#include <stdbool.h>
-#include <windows.h>
+#include <stdbool.h>    // permite el uso de booleanos
+#include <time.h>       // seed para el rand()
+#include <rlutil.h>     // colorines
+#include <windows.h>    // música
 
 // Exercici Práctica #2.
 
-bool musicPlay=true;
+// Prototipos.
+void music(void);
+void resetPrograma(void);
+// NOTA. No uso más procedimentos porque dijisteis que no queríais. Los uso para pijadas mías que quería meter nada más.
 
-// Método para reproducir música.
-void music(){
-    PlaySound(TEXT("artblock"), NULL, SND_LOOP | SND_ASYNC);
-}
+// Variables globales.
+int xDir=1, yDir=1, yDirPlus=0; // Valores de gotoxy().
+bool musicPlay=true; // Variable para reproducir música.
 
 // INICI PROGRAMA
 int main(){
-
-    // Ejecuta la música 1 vez.
-    if (musicPlay){
-        music();
-        musicPlay=false;
-    }
 
     system("MODE CON: COLS=100");
     SetConsoleTitle("DAM1 M3/UF1.Programacio Estructurada. Denis Anfruns. 2020/2021 Exercici 2.");
@@ -39,14 +35,15 @@ int main(){
     int randCot=0, numRandom=2;
 
     // Valores de la tabla. Dias y valores de cotización.
-    int dia=1;
+    int dia=1, i=0;
     int xDir=1, yDir=0, yDirPlus=0; // Valores de gotoxy().
     int falloCont=0; // Contadores.
 
-    // Variable para controlar la salida/repetición del programa.
-    char optionPr='X';
-    // Variable contador final.
-    int finalCountdown=3;
+    // Ejecuta la música 1 vez.
+    if (musicPlay){
+        music();
+        musicPlay=false;
+    }
 
     setColor(6);
     printf("\n Benvingut al SISTEMA GESTOR DE COTITZACIONS A BORSA v1.1\n");
@@ -96,7 +93,7 @@ int main(){
 
     // 1er INICIO BLOQUE DEL GRÁFICO
     yDir=yDir+yDirPlus+1;
-    for (int i=40;i>=0;i--){
+    for (i=40;i>=0;i--){
         yDir++;
         gotoxy(xDir,yDir);
         msleep(15);
@@ -163,19 +160,30 @@ int main(){
         dia++;
         gotoxy(xDir,yDir);
     }
+    xDir=1; yDir=43+yDirPlus;
+    gotoxy(xDir,yDir);
+    resetPrograma();
     // 2do FIN BLOQUE DEL GRÁFICO
 
     // SALIDA DEL PROGRAMA
     if (falloCont==3){
-        xDir=1; yDir=45+yDirPlus;
+        xDir=1; yDir=43+yDirPlus;
         gotoxy(xDir,yDir);
         printf(" L'EMPRESA A CAIGUT EN BANCARROTA\n\n");
         yDirPlus=yDirPlus+2;
+        resetPrograma();
     }
+    return 0;
+}
 
-    // RESET
-    xDir=1; yDir=43+yDirPlus;
-    gotoxy(xDir,yDir);
+// Método/Procedimiento reset/cierre programa.
+void resetPrograma(){
+
+    int i=0; // Contador para el borrador final. Podría activar en settings>compiler el -std=c99 y...
+             // declarar la variable directo en el 'for' pero por si acaso te da problemas lo hago así.
+    char optionPr='X'; // Variable para controlar la salida/repetición del programa.
+    int finalCountdown=3; // I'ts a final countdown!
+
     setColor(15);
     fflush(stdin);
     printf("\n\n>> Ara vols ["); setColor(12); printf("R"); setColor(15); printf("]einiciar el sistema o vols ["); setColor(12); printf("S"); setColor(15); printf("]ortir? ");
@@ -194,7 +202,7 @@ int main(){
         main();
     } else {
         setColor(6);
-        printf("\n DAM1 M3/UF1.Programació Estructurada. Práctica de Programació. Exercici 2\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
+        printf("\n DAM1 M3/UF1.Programació Estructurada. Práctica de Programació. Exercici 1\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
         printf("\n MÚSICA 'artblock' DE https://opengameart.org/content/artblock");
         setColor(15);
 
@@ -205,16 +213,20 @@ int main(){
             msleep(1000);
             printf("\b%d",finalCountdown);
         }
-        int borrado;
-        for (borrado=0;borrado<=27;borrado++){
+        for (i=0;i<=27;i++){
             msleep(10);
             printf("\b \b");
         }
-        gotoxy(xDir,yDirPlus+49);
+        gotoxy(xDir,yDir+=(55+yDirPlus));
         printf("\n\n Prem Intro per sortir...");
         getchar();
         exit(0);
     }
-    return 0;
+}
+
+// Método/procedimiento para reproducir tema musical.
+void music(){
+    PlaySound(TEXT("artblock"), NULL, SND_LOOP | SND_ASYNC);
+    musicPlay=false;
 }
 

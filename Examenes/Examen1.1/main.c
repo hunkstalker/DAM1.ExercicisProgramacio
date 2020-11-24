@@ -1,6 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <rlutil.h>
+#include <time.h>
 
 // Examen 1.1 DAM1. Denis Anfruns.
 

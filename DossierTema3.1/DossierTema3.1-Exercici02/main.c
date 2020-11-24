@@ -36,7 +36,7 @@ int main()
         scanf("%d",&numNota);
     }
     setColor(6);
-    imprimirNota(numNota);
+    imprimirNota(numNota);s
     setColor(15);
     resetPrograma();
     return 0;
