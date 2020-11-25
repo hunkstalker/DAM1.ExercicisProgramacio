@@ -21,7 +21,7 @@ int demanarNota(int);
 
 int main()
 {
-    SetConsoleTitle("Dossier Tema3. Exercici03. (NotaNumericaaLLetres2) Denis Anfruns.");
+    SetConsoleTitle("Dossier Tema3. Exercici 03. (NotaNumericaaLLetres2) Denis Anfruns.");
 
     // Tildes y símbolos alienígenas.
     SetConsoleCP(1252);
@@ -80,7 +80,7 @@ void resetPrograma(){
         main();
     } else {
         setColor(6);
-        printf("\n Dossier Tema3. Exercici03. (NotaNumericaaLLetres2).\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
+        printf("\n Dossier Tema3. Exercici 03. (NotaNumericaaLLetres2).\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
         setColor(15);
 
         // Cuenta atrás.

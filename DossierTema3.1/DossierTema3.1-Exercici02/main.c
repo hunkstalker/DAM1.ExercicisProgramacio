@@ -36,7 +36,7 @@ int main()
         scanf("%d",&numNota);
     }
     setColor(6);
-    imprimirNota(numNota);s
+    imprimirNota(numNota);
     setColor(15);
     resetPrograma();
     return 0;
@@ -44,9 +44,9 @@ int main()
 
 void imprimirNota(num){
     if (num>=0 && num<=4) printf("\n>> La teva nota es de %d y es un Insuficient D:", num);
-    if (num>=5 && num<=6) printf("\n>> La teva nota es de %d y es un Suficient :)", num);
-    if (num>=7 && num<=8) printf("\n>> La teva nota es de %d y es un Notable :D", num);
-    if (num>=9 && num==10) printf("\n>> La teva nota es de %d y es un Excel·lent ~(^-^)~", num);
+    else if (num<=6) printf("\n>> La teva nota es de %d y es un Suficient :)", num);
+    else if (num<=8) printf("\n>> La teva nota es de %d y es un Notable :D", num);
+    else printf("\n>> La teva nota es de %d y es un Excel·lent ~(^-^)~", num);
 }
 
 
