@@ -2,55 +2,53 @@
 #include <stdlib.h>
 #include <rlutil.h>
 
-// Dossier 2020-21-ME-UF1. Tema 3.1 Exercici 01
-
-/*(IntercanviVariables)
-Crea un procediment que intercanviï el valor de dues variables que passarem
-com a paràmetres i que prèviament haurem introduït per teclat. S’han d’intercanviar
-els valors entre les variables i no mostrar les variables al revés)
-
-void intercanviVariables (int *num1, int *num2)
-*/
+// Dossier 2020-21-ME-UF1. Tema 3. Exercici 01
 
 // prototipos
 void resetPrograma(void);
-
-void intercanviVariables (int *, int *);
-int demanarValors (int *, int *);
+void coord(int *, int *);
+void rectangle(int,int,int,int);
 
 int main()
 {
-    SetConsoleTitle("Dossier Tema 3.1 Exercici 1. (IntercanviVariables)  Denis Anfruns.");
+    SetConsoleTitle("Exercici (Rectangle) Denis Anfruns.");
 
     // Tildes y símbolos alienígenas.
     SetConsoleCP(1252);
     SetConsoleOutputCP(1252);
 
-    int num1, num2, cont=1;
+    int xIni, yIni, xFin, yFin;
 
-    num1=demanarValors(&num1,&cont);
-    num2=demanarValors(&num2,&cont);
-    intercanviVariables (&num1, &num2);
-    printf("\n >> El valor 1 ara es: %d y el 2: %d\n", num1, num2);
+    printf("Introdueix coordenadas inicials: ");
+    coord(&xIni,&yIni);
+    printf("Introdueix coordenadas finals: ");
+    coord(&xFin,&yFin);
+    rectangle(xIni,yIni,xFin,yFin);
+
 
     resetPrograma();
     return 0;
 }
 
-int demanarValors (int *num, int *cnt){
-    {
-        printf("\n >> Introdueix un valor %d: ", *cnt);
-        scanf("%d", &(*num));
-        (*cnt)++;
-    }
-    return *num;
+void coord(int *xCoord, int *yCoord){
+    scanf("%d %d",&*xCoord,&*yCoord);
 }
 
-void intercanviVariables (int *num1, int *num2){
-    int aux;
-    aux=(*num1);
-    (*num1)=(*num2);
-    (*num2)=(aux);
+void rectangle(xIni,yIni,xFin,yFin){
+    setColor(RED);
+    setBackgroundColor(RED);
+    char car= 'X';
+    int aux=xIni;
+
+    for (;yIni<yFin;yIni++){
+        for (;xIni<yFin;xIni++) {
+            gotoxy(xIni,yIni);
+            printf("%c",car);
+        }
+        xIni=aux;
+    }
+    setColor(WHITE);
+    setBackgroundColor(0);
 }
 
 // Función reset programa.
@@ -63,7 +61,7 @@ void resetPrograma(){
     // RESET.
     setColor(15);
     fflush(stdin);
-    printf("\n\n >> Ara vols ["); setColor(12); printf("R"); setColor(15); printf("]einiciar el sistema o vols ["); setColor(12); printf("S"); setColor(15); printf("]ortir? ");
+    printf("\n\n>> Ara vols ["); setColor(12); printf("R"); setColor(15); printf("]einiciar el sistema o vols ["); setColor(12); printf("S"); setColor(15); printf("]ortir? ");
     scanf("%c",&optionPr);
     fflush(stdin);
 
@@ -78,7 +76,7 @@ void resetPrograma(){
         main();
     } else {
         setColor(6);
-        printf("\n Dossier Tema 3.1 Exercici 1. (IntercanviVariables)\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
+        printf("\n Exercici (Rectangle)\n Curs.2020/2021. Denis Anfruns. EDUCEM, Granollers.");
         setColor(15);
 
         // Cuenta atrás.

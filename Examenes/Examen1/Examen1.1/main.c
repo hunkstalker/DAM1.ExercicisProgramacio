@@ -65,7 +65,6 @@ int main()
     printf("\n S'han produit %d tirades.", tirada-=1);
     setColor(15);
 
-
     resetPrograma();
     return 0;
 }

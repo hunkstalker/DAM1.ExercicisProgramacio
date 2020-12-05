@@ -52,7 +52,7 @@ int main()
         numMax=numAux;
     }
     gotoxy(xDir,yDir+yDirDiff);
-    printf(">> El valor màxim es %d y el mìnim %d.", numMax, numMin);
+    printf(">> El valor màxim es %d y el mínim %d.", numMax, numMin);
     yDir++;
     numCorrecte=numMax;
     gotoxy(xDir,yDir+yDirDiff);
