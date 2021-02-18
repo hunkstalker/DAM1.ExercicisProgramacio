@@ -1,0 +1,55 @@
+ # include < stdio.h >
+ # include < stdlib.h >
+ # include < stdbool.h >
+ # define MAXVECTOR 5
+
+bool cerca(int num[MAXVECTOR], int qttElements, int numCerca);
+void pintaVector(int v[MAXVECTOR], int qttElements);
+int demanarNumero();
+
+int main() {
+    int num[MAXVECTOR];
+    int qttElements;
+    int valor;
+    pintaVector(num, MAXVECTOR);
+    for (qttElements = 0; qttElements < MAXVECTOR; qttElements++) {
+        do {
+            printf("\nIntrodueix el valor de la casella %d:\n", qttElements);
+            valor = demanarNumero();
+        } while (cerca(num, qttElements, valor) == true);
+        num[qttElements] = valor;
+    }
+
+    printf("\n");
+    pintaVector(num, qttElements);
+    return 0;
+}
+
+int demanarNumero() {
+    int num;
+    scanf("%d",  & num);
+    return num;
+}
+
+bool cerca(int num[MAXVECTOR], int qttElements, int numCerca) {
+    int i = 0;
+    bool trobat = false;
+    while (i < qttElements && trobat == false) {
+        if (num[i] == numCerca)
+            trobat = true;
+        else
+            i++;
+    }
+    return trobat;
+}
+
+void pintaVector(int v[MAXVECTOR], int qttElements) {
+    int i = 0;
+    if (qttElements == 0)
+        printf("\nVector buit");
+    else {
+        for (; i < qttElements; i++) {
+            printf("num[%d]:%d\n", i, v[i]);
+        }
+    }
+}

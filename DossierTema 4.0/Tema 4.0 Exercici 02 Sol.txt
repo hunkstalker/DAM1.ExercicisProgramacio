@@ -1,0 +1,53 @@
+ # include < stdio.h >
+ # include < stdlib.h >
+ # include < time.h >
+ # include < RiazaClaudina.h >
+ # define MAXVECTOR 6
+
+int introdueixNumero(int minim, int maxim);
+void ompleVector(int v[], int qtt);
+float calculValorPromig(int v[], int qtt);
+void pintaresultat(int v[], int qtt, float promig);
+
+int main() {
+    int v[MAXVECTOR],
+    qtt;
+    float promig;
+    srand(time(NULL));
+    qtt = introdueixNumero(0, MAXVECTOR); ///Controla num
+    ompleVector(v, qtt);
+    promig = calculValorPromig(v, qtt);
+    pintaresultat(v, qtt, promig);
+    return 0;
+}
+
+int introdueixNumero(int minim, int maxim) {
+    int numero;
+    printf("Introdueix un numero entre 0 i %d", maxim);
+    numero = demanarNumeroCompresEntreDosValors(minim, maxim);
+    return numero;
+}
+
+void ompleVector(int v[], int qtt) {
+    int i;
+    for (i = 0; i < qtt; i++) {
+        v[i] = rand() % 11;
+    }
+}
+
+float calculValorPromig(int v[], int qtt) {
+    int acum = 0,
+    i;
+    for (i = 0; i < qtt; i++) {
+        acum = acum + v[i];
+    }
+    return acum / qtt;
+}
+
+void pintaresultat(int v[], int qtt, float promig) {
+    int i;
+    for (i = 0; i < qtt; i++) {
+        printf("\nv[%d] = %d", i, v[i]);
+    }
+    printf("\nEl promig es %2f", promig);
+}

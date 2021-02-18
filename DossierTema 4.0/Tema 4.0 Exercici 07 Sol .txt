@@ -1,0 +1,69 @@
+ # include < stdio.h >
+ # include < stdlib.h >
+ # define MAXVECTOR 100
+
+int demanarNumeroCompresEntreDosValors(int minim, int maxim);
+int posicio(int num[MAXVECTOR], int qttE, int numCercaPos);
+
+int main() {
+    int num[MAXVECTOR],
+    cont[MAXVECTOR] = {};
+
+    int qttE = 0;
+    int valor,
+    pos;
+
+    printf("\nIntrodueix un  numero entre -1 i 99:\n");
+    valor = demanarNumeroCompresEntreDosValors(-1, 99);
+    while (valor != -1) {
+        pos = posicio(num, qttE, valor);
+        if (pos == -1) {
+            // element nou
+            num[qttE] = valor;
+            cont[qttE] = 1;
+            qttE++;
+        } else {
+            ///l'element ja existia i he de comptar un mes
+            cont[pos]++;
+        }
+        printf("\nIntrodueix un  numero entre -1 i 99:\n");
+        valor = demanarNumeroCompresEntreDosValors(-1, 99);
+    }
+
+    pintaVector(num, cont, qttE);
+
+    return 0;
+}
+
+int demanarNumeroCompresEntreDosValors(int minim, int maxim) {
+    int n;
+    scanf("%i",  & n);
+    while (n < minim || n > maxim) {
+        printf("\n Introdueix un valor entre %i i %i.\n", minim, maxim);
+        scanf("%i",  & n);
+    }
+    return n;
+}
+
+int posicio(int num[MAXVECTOR], int qttE, int numCercaPos) {
+    int i = 0,
+    pos = -1;
+    while (i < qttE && pos == -1) {
+        if (num[i] == numCercaPos)
+            pos = i;
+        else
+            i++;
+    }
+    return pos;
+}
+
+void pintaVector(int num[MAXVECTOR], int cont[MAXVECTOR], int qttE) {
+    int i;
+    if (qttE == 0)
+        printf("\No s'ha introduit cap valor valid");
+    else {
+        for (i = 0; i < qttE; i++) {
+            printf("\nEl numero %d ha aparegut %d", num[i], cont[i]);
+        }
+    }
+}

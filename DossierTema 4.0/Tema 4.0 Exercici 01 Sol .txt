@@ -1,0 +1,77 @@
+ # include < stdio.h >
+ # include < stdlib.h >
+ # include < time.h >
+ # define TOTALCASELLES 6
+
+//void inicialitzaAleatoriRandom(int v[],int qtt);
+void pintaVector(int v[], int qtt);
+void modifica(int v[], int qtt);
+int calculaParells(int v[], int qtt);
+int sumaValorsVector(int v[], int qtt);
+
+int main() {
+    int v[TOTALCASELLES] = {
+        4,
+        3,
+        5,
+        6,
+        2,
+        10
+    }; // Exercici 1.1
+    srand(time(NULL));
+
+    //inicialitzaAleatoriRandom(v,TOTALCASELLES);
+    pintaVector(v, TOTALCASELLES); // Exercici 1.2
+    printf("\nEL vector te %d numeros parells", calculaParells(v, TOTALCASELLES)); // Exrercici 1.3
+    printf("\nLa suma dels valors del vector es %d", sumaValorsVector(v, TOTALCASELLES)); // Exercici 1.4
+    modifica(v, TOTALCASELLES); // Exrercici 1.6
+    printf("\n");
+
+    return 0;
+}
+
+/*
+void inicialitzaAleatoriRandom(int v[],int qtt) {
+int i;
+for (i=0; i<qtt; i++) {
+v[i]=rand()%5;
+}
+}
+ */
+
+void pintaVector(int v[], int qtt) {
+    int i;
+    if (qtt == 0)
+        printf("\nVector buit");
+    else {
+        for (i = 0; i < qtt; i++) {
+            printf("v[%d]=%d\n", i, v[i]);
+        }
+    }
+}
+
+int calculaParells(int v[], int qtt) {
+    int i,
+    contP = 0;
+    for (i = 0; i < qtt; i++) {
+        if (v[i] % 2 == 0)
+            contP++;
+    }
+    return contP;
+}
+
+int sumaValorsVector(int v[], int qtt) {
+    int i = 0,
+    acum = 0;
+    for (i = 0; i < qtt; i++) {
+        acum = v[i] + acum;
+    }
+    return acum;
+}
+
+void modifica(int v[], int qtt) {
+    int i;
+    for (i = 1; i < qtt; i++) {
+        v[i] = v[i] + v[i - 1];
+    }
+}
