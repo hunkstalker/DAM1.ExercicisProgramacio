@@ -51,7 +51,7 @@ void start() {
     marcarBaralles(numUsu,palUsu);                                                              //marco la baraja del jugador.
     marcarBaralles(numOrd1,palOrd1);                                                            //marco la baraja del ordenador.
 
-    while((usuari || ordinador1==0) && numBaralla[0]!=-1) {                                        //controlo si el usuario sigue jugando o no.
+    while((usuari || ordinador1==0) && numBaralla[0]!=-1) {                                     //controlo si el usuario sigue jugando o no.
         if(usuari){
             printf("\n\n RONDA %d: \n La teva puntuació es de %.1f punts.\n",ronda,ptsUsu);
             usuari=volsJugar();                                                                 //usuario decide si quiere jugar.
@@ -64,7 +64,7 @@ void start() {
             moureCartes(numBaralla,palBaralla,MAXVECTOR,carta);                                 //controlo la carta sacada y organizo la baraja.
         }
         glaDosIA(ptsOrd1,&ordinador1);                                                          //ordenador decide si quiere jugar.
-        if(ordinador1==0){                                                                         //controlo si el ordenador sigue jugando o no.
+        if(ordinador1==0){                                                                      //controlo si el ordenador sigue jugando o no.
             ++torn;                                                                             //controlo los turnos para hacer el cálculo de cartas que debo restar a la baraja.
             ptsOrd1=ptsOrd1+demanaCarta(numBaralla,MAXVECTOR,&carta,torn);                      //ordenador pide carta y suma puntos.
             registreTorns(numBaralla,palBaralla,numOrd1,palOrd1,carta);                         //registro de los turnos del ordenador.
